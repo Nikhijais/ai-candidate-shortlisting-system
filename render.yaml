@@ -2,6 +2,7 @@ services:
   - type: web
     name: ai-candidate-shortlisting
     env: node
+    plan: free
     rootDir: server
     buildCommand: npm run build
     startCommand: npm start
