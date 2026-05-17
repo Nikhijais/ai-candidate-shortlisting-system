@@ -2,6 +2,7 @@ require('dotenv').config();
 const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
+const path = require('path');
 const apiRoutes = require('./routes/api');
 
 const app = express();
@@ -12,6 +13,13 @@ app.use(express.json());
 
 // Routes
 app.use('/api', apiRoutes);
+
+// Serve frontend in production
+app.use(express.static(path.join(__dirname, '../client/dist')));
+
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, '../client/dist/index.html'));
+});
 
 // Database connection
 const PORT = process.env.PORT || 5000;
